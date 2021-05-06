@@ -32,7 +32,7 @@
         app:layout_constraintVertical_bias="0.217" />
 
     <EditText
-        android:id="@+id/editText3"
+        android:id="@+id/txtnimregister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/grup_nim"
@@ -46,7 +46,7 @@
         app:layout_constraintVertical_bias="0.303" />
 
     <EditText
-        android:id="@+id/editText4"
+        android:id="@+id/txtusernameregister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/grup_nim"
@@ -60,7 +60,7 @@
         app:layout_constraintVertical_bias="0.38" />
 
     <EditText
-        android:id="@+id/editText5"
+        android:id="@+id/txtjurusanregister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/grup_nim"
@@ -74,7 +74,7 @@
         app:layout_constraintVertical_bias="0.465" />
 
     <EditText
-        android:id="@+id/editText6"
+        android:id="@+id/txtprodiregister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/grup_nim"
@@ -88,7 +88,7 @@
         app:layout_constraintVertical_bias="0.543" />
 
     <EditText
-        android:id="@+id/editText7"
+        android:id="@+id/txtkelasregister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/grup_nim"
@@ -102,7 +102,7 @@
         app:layout_constraintVertical_bias="0.619" />
 
     <EditText
-        android:id="@+id/editText8"
+        android:id="@+id/txtemailregister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/grup_nim"
@@ -116,7 +116,7 @@
         app:layout_constraintVertical_bias="0.702" />
 
     <EditText
-        android:id="@+id/editText9"
+        android:id="@+id/txtpasswordregister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/grup_nim"
@@ -130,7 +130,7 @@
         app:layout_constraintVertical_bias="0.777" />
 
     <EditText
-        android:id="@+id/editText10"
+        android:id="@+id/txtconfirmpasswordregister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/grup_nim"
@@ -144,6 +144,7 @@
         app:layout_constraintVertical_bias="0.852" />
 
     <ImageButton
+        android:id="@+id/btnsignupregister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/custom_button_signup"
