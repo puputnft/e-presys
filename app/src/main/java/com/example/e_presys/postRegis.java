@@ -2,7 +2,7 @@ package com.example.e_presys;
 
 public class postRegis {
     private String nim;
-    private  String username;
+    private String username;
     private String jurusan;
     private String prodi;
     private String kelas;

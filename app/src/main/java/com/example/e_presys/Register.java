@@ -17,7 +17,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class Register extends AppCompatActivity {
     EditText nim,username,jurusan,prodi,kelas,email,password,confirm_password;
     ImageButton signup;
-    public String url = " http://156.67.221.101:2002/";
+    public String url = MainActivity.url;
+    private String port = "9002/";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,7 +32,14 @@ public class Register extends AppCompatActivity {
         password = findViewById(R.id.txtpasswordregister);
         confirm_password = findViewById(R.id.txtconfirmpasswordregister);
         signup = findViewById(R.id.btnsignupregister);
+        String code = getIntent().getStringExtra("code").toString();
+        if (code.equals("0")){
 
+        }
+        else{
+            nim.setHint("NIP");
+            kelas.setHint("Kode Dosen");
+        }
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -53,7 +61,7 @@ public class Register extends AppCompatActivity {
 
     }
     public void register(String nim,String username,String jurusan,String prodi,String kelas,String email,String pass){
-        final Retrofit retrofit = new Retrofit.Builder().baseUrl(url).addConverterFactory(GsonConverterFactory.create()).build();
+        final Retrofit retrofit = new Retrofit.Builder().baseUrl(url+port).addConverterFactory(GsonConverterFactory.create()).build();
         postRegis postRegis = new postRegis(nim, username, jurusan, prodi, kelas, email, pass);
         jsonplaceholder jsonplaceholder = retrofit.create(com.example.e_presys.jsonplaceholder.class);
         Call<postRegis>call = jsonplaceholder.postregist(postRegis);
