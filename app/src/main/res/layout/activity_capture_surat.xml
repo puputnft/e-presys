@@ -8,6 +8,7 @@
     android:background="@drawable/frame_capture_surat">
 
     <ImageButton
+        android:id="@+id/buttoncapture"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/custom_capture_surat"

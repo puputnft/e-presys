@@ -15,6 +15,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class MainActivity extends AppCompatActivity {
     public static String url = " http://156.67.221.101:";
     private String port = "9000/";
+    public static int keterangan_kode;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

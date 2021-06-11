@@ -20,6 +20,7 @@ public class recycleviewadapter1 extends RecyclerView.Adapter<recycleviewadapter
     Context context;
     public String key = login.token;
     public static String matkul = "matkul" ;
+    public static String dosen = "dosen" ;
     public SharedPreferences sharedPreferences ;
 
     public recycleviewadapter1(ArrayList matakuliahlist, ArrayList dosenlist, ArrayList waktu_kuliahlist, Context context) {
@@ -39,7 +40,7 @@ public class recycleviewadapter1 extends RecyclerView.Adapter<recycleviewadapter
     @Override
     public void onBindViewHolder(@NonNull recycleviewadapter1.ViewHolder holder, int position) {
         final String matakuliah = (String) matakuliahlist.get(position);
-        String dosen = (String) dosenlist.get(position);
+        final String dosen = (String) dosenlist.get(position);
         String waktukuliah = (String) waktu_kuliahlist.get(position);
         holder.matakuliah.setText(matakuliah);
         holder.dosen.setText(dosen);
@@ -50,6 +51,7 @@ public class recycleviewadapter1 extends RecyclerView.Adapter<recycleviewadapter
             @Override
             public void onClick(View v) {
                 editor.putString(matkul,matakuliah );
+                editor.putString(dosen,dosen);
                 editor.commit();
                 Intent i = new Intent(context,konfirmasi.class);
                 context.startActivity(i);

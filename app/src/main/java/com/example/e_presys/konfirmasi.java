@@ -36,7 +36,7 @@ public class konfirmasi extends AppCompatActivity {
                 }
                 else{
                     confirm(konfirmasi_user.getText().toString(),konfirmasi_pass.getText().toString());
-                }
+                 }
             }
         });
     }
@@ -50,8 +50,14 @@ public class konfirmasi extends AppCompatActivity {
             public void onResponse(Call<com.example.e_presys.postlogin> call, Response<com.example.e_presys.postlogin> response) {
                 if (response.code()==200){
                     Toast.makeText(getApplicationContext(),"Berhasil",Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(com.example.e_presys.konfirmasi.this,masuk_kelas.class));
-                    finish();
+                    if(MainActivity.keterangan_kode==0||MainActivity.keterangan_kode==1){
+                        startActivity(new Intent(com.example.e_presys.konfirmasi.this,Capture_Surat.class));
+                        finish();
+                    }
+                    else{
+                        startActivity(new Intent(com.example.e_presys.konfirmasi.this,masuk_kelas.class));
+                        finish();
+                    }
                 }
                 else{
                     Toast.makeText(getApplicationContext(),"Gagal",Toast.LENGTH_SHORT).show();

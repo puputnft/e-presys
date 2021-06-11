@@ -8,7 +8,7 @@
     android:background="@drawable/ic_frame_pilih_sakit_izin">
 
     <ImageButton
-        android:id="@+id/imageButton4"
+        android:id="@+id/buttonabsensakit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/custom_button_sakit"
@@ -19,6 +19,7 @@
         app:layout_constraintVertical_bias="0.548" />
 
     <ImageButton
+        android:id="@+id/buttonabsenizin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/custom_button_izin"
