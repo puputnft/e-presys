@@ -8,11 +8,13 @@
     android:background="@drawable/frame_konfirmasi">
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/konfirmasi_username"
         android:layout_width="314dp"
         android:layout_height="49dp"
         android:background="@drawable/usernametxt"
         android:hint="Username"
+        android:textColorHint="@color/normal"
+        android:textColor="@color/hitam"
         android:paddingLeft="15dp"
         android:paddingBottom="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -23,11 +25,13 @@
         app:layout_constraintVertical_bias="0.434" />
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/konfirmasi_password"
         android:layout_width="314dp"
         android:layout_height="49dp"
         android:background="@drawable/passwordtxt"
         android:hint="Password"
+        android:textColorHint="@color/normal"
+        android:textColor="@color/hitam"
         android:paddingLeft="15dp"
         android:paddingBottom="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -38,6 +42,7 @@
         app:layout_constraintVertical_bias="0.545" />
 
     <ImageButton
+        android:id="@+id/konfirmasi"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/custom_button_konfirmasi"

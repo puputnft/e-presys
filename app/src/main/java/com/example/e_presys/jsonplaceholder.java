@@ -15,5 +15,7 @@ public interface jsonplaceholder {
     Call<getWelcome>postWelcome();
     @POST("/schedule")
     Call<List<respon_get_schedule>> getschedule (@Body respon_get_schedule get_schedule);
+    @POST("/user/present")
+    Call<postpresent>getlink(@Body postpresent postpresent);
 
 }

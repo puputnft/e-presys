@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import java.util.ArrayList;
@@ -24,11 +26,18 @@ public class OnlineMhs extends AppCompatActivity {
     public ArrayList matakuliahlist = new ArrayList<>();
     public ArrayList dosenlist = new ArrayList<>();
     public ArrayList waktu_kuliahlist = new ArrayList<>();
-
+    public String key = login.token;
+    public String secret = login.secret;
+    public SharedPreferences sharedPreferences ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_online_mhs);
+        sharedPreferences = getSharedPreferences(key, this.MODE_PRIVATE);
+        String token_id = sharedPreferences.getString(secret,"kosong");
+        ambil_jadwal(token_id);
+
+
     }
     void ambil_jadwal(String id) {
         final Retrofit retrofit = new Retrofit.Builder().baseUrl(url+port).addConverterFactory(GsonConverterFactory.create()).build();
@@ -47,6 +56,7 @@ public class OnlineMhs extends AppCompatActivity {
                         for(respon_get_schedule respon_get_schedule1:hasil) {
                             dosenlist.add(respon_get_schedule1.getDosen());
                             matakuliahlist.add(respon_get_schedule1.getMatakuliah());
+                            waktu_kuliahlist.add(respon_get_schedule1.getJamstart()+":"+respon_get_schedule1.getMenitstart()+" - "+respon_get_schedule1.getJamend()+":"+respon_get_schedule1.getMenitend());
                         }
                         show_data();
                     }
