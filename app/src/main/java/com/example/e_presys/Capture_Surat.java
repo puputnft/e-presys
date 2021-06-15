@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import java.io.File;
 import java.io.IOException;
+import java.security.acl.Permission;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -34,7 +35,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class Capture_Surat extends AppCompatActivity {
+public class Capture_Surat extends AppCompatActivity  {
     File photofile = null;
     public static int CAPTURE_IMAGE_REQUEST = 1;
     public String mCurrentPhotoPath;
@@ -86,7 +87,7 @@ public class Capture_Surat extends AppCompatActivity {
                     captureImage();
                 }
                 else {
-                    Toast.makeText(getApplicationContext(),"proses gagal",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),String.valueOf(response.code()),Toast.LENGTH_SHORT).show();
                 }
             }
 
