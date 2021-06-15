@@ -47,7 +47,7 @@ public class Pilihan extends AppCompatActivity {
         cek_data.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent x = new Intent(Pilihan.this,cek_data.class);
+                Intent x = new Intent(Pilihan.this,history.class);
                 startActivity(x);
 
             }

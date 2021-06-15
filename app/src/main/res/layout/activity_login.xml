@@ -61,7 +61,8 @@
         app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.615" />
+        app:layout_constraintVertical_bias="0.615"
+        android:inputType="textPassword"/>
 
     <ImageButton
         android:id="@+id/buttonlogin"

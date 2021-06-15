@@ -21,6 +21,8 @@ public interface jsonplaceholder {
     Call<postIzin>postIzin(@Body postIzin postIzin);
     @POST("/user/sakit")
     Call<postSakit>postSakit(@Body postSakit postSakit);
+    @POST("user/history")
+    Call<List<getHistory>>gethistory(@Body getHistory getHistory);
 
 
 }
