@@ -2,9 +2,13 @@ package com.example.e_presys;
 
 import java.util.List;
 
+import okhttp3.MultipartBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 
 public interface jsonplaceholder {
     @POST("/user/regist")
@@ -23,6 +27,9 @@ public interface jsonplaceholder {
     Call<postSakit>postSakit(@Body postSakit postSakit);
     @POST("user/history")
     Call<List<getHistory>>gethistory(@Body getHistory getHistory);
+    @Multipart
+    @POST("/uploadfile")
+    Call<ResponseBody>uploadimage(@Part MultipartBody.Part file);
 
 
 }

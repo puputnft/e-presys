@@ -40,10 +40,10 @@ public class recycleviewadapter1 extends RecyclerView.Adapter<recycleviewadapter
     @Override
     public void onBindViewHolder(@NonNull recycleviewadapter1.ViewHolder holder, int position) {
         final String matakuliah = (String) matakuliahlist.get(position);
-        final String dosen = (String) dosenlist.get(position);
+        final String dosen1 = (String) dosenlist.get(position);
         String waktukuliah = (String) waktu_kuliahlist.get(position);
         holder.matakuliah.setText(matakuliah);
-        holder.dosen.setText(dosen);
+        holder.dosen.setText(dosen1);
         holder.waktu_kuliah.setText(waktukuliah);
         sharedPreferences = context.getSharedPreferences(key,context.MODE_PRIVATE);
         final SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -51,7 +51,7 @@ public class recycleviewadapter1 extends RecyclerView.Adapter<recycleviewadapter
             @Override
             public void onClick(View v) {
                 editor.putString(matkul,matakuliah );
-                editor.putString(dosen,dosen);
+                editor.putString(dosen,dosen1);
                 editor.commit();
                 Intent i = new Intent(context,konfirmasi.class);
                 context.startActivity(i);
