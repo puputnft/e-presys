@@ -8,9 +8,10 @@ public class postRegis {
     private String kelas;
     private String email;
     private String pass;
+    private String status;
     private String message;
 
-    public postRegis(String nim,String username,String jurusan,String prodi,String kelas,String email,String pass){
+    public postRegis(String nim,String username,String jurusan,String prodi,String kelas,String email,String pass,String status){
         this.nim =nim;
         this.username =username;
         this.jurusan =jurusan;
@@ -18,6 +19,7 @@ public class postRegis {
         this.kelas =kelas;
         this.email =email;
         this.pass =pass;
+        this.status = status;
 
     }
 

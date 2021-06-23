@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,10 +25,14 @@ public class OnlineMhs extends AppCompatActivity {
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     public ArrayList matakuliahlist = new ArrayList<>();
-    public ArrayList dosenlist = new ArrayList<>();
+    public ArrayList dosen1list = new ArrayList<>();
+    public ArrayList dosen2list = new ArrayList<>();
+    public ArrayList dosen3list = new ArrayList<>();
     public ArrayList waktu_kuliahlist = new ArrayList<>();
     public String key = login.token;
     public String secret = login.secret;
+    public String status = login.secret_status;
+    public String stat;
     public SharedPreferences sharedPreferences ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +40,14 @@ public class OnlineMhs extends AppCompatActivity {
         setContentView(R.layout.activity_online_mhs);
         sharedPreferences = getSharedPreferences(key, this.MODE_PRIVATE);
         String token_id = sharedPreferences.getString(secret,"kosong");
-        ambil_jadwal(token_id);
+        stat = sharedPreferences.getString(status,"-1");
+        if (stat.equals("0")){
+            ambil_jadwal(token_id);
+        }
+        else{
+            ambil_jadwal_dosen(token_id);
+        }
+
 
 
     }
@@ -47,20 +59,26 @@ public class OnlineMhs extends AppCompatActivity {
         toCall.enqueue(new Callback<List<com.example.e_presys.respon_get_schedule>>() {
             @Override
             public void onResponse(Call<List<com.example.e_presys.respon_get_schedule>> call, Response<List<com.example.e_presys.respon_get_schedule>> response) {
-                if(response.code()==207){
+                if(response.code()==200){
                     List<respon_get_schedule> hasil = response.body();
                     if(hasil.isEmpty()) {
-
+                        Toast.makeText(getApplicationContext(),"Schedule empty",Toast.LENGTH_SHORT).show();
                     }
                     else {
                         for(respon_get_schedule respon_get_schedule1:hasil) {
-                            dosenlist.add(respon_get_schedule1.getDosen());
+                            dosen1list.add(respon_get_schedule1.getDosen1());
+                            dosen2list.add(respon_get_schedule1.getDosen2());
+                            dosen3list.add(respon_get_schedule1.getDosen3());
                             matakuliahlist.add(respon_get_schedule1.getMatakuliah());
-                            waktu_kuliahlist.add(respon_get_schedule1.getJamstart()+":"+respon_get_schedule1.getMenitstart()+" - "+respon_get_schedule1.getJamend()+":"+respon_get_schedule1.getMenitend());
+                            waktu_kuliahlist.add(respon_get_schedule1.getTime_start()+"-"+respon_get_schedule1.getTime_end());
                         }
                         show_data();
                     }
                 }
+                else{
+                    Toast.makeText(getApplicationContext(),String.valueOf(response.code()),Toast.LENGTH_SHORT).show();
+                }
+
             }
 
             @Override
@@ -69,12 +87,51 @@ public class OnlineMhs extends AppCompatActivity {
             }
         });
     }
+
+    void ambil_jadwal_dosen(String id){
+        final Retrofit retrofit = new Retrofit.Builder().baseUrl(url+port).addConverterFactory(GsonConverterFactory.create()).build();
+        final respon_get_schedule_dosen respon_get_schedule_dosen = new respon_get_schedule_dosen(id);
+        jsonplaceholder js = retrofit.create(jsonplaceholder.class);
+        Call<List<com.example.e_presys.respon_get_schedule_dosen>> toCall = js.getscheduleDosen(respon_get_schedule_dosen);
+        toCall.enqueue(new Callback<List<com.example.e_presys.respon_get_schedule_dosen>>() {
+            @Override
+            public void onResponse(Call<List<com.example.e_presys.respon_get_schedule_dosen>> call, Response<List<com.example.e_presys.respon_get_schedule_dosen>> response) {
+                if(response.code()==200){
+                    List<respon_get_schedule_dosen> hasil = response.body();
+                    if(hasil.isEmpty()) {
+                        Toast.makeText(getApplicationContext(),"Schedule empty",Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        for(respon_get_schedule_dosen respon_get_schedule1:hasil) {
+                            dosen1list.add(respon_get_schedule1.getKelas());
+                            dosen2list.add(" ");
+                            dosen3list.add(" ");
+                            matakuliahlist.add(respon_get_schedule1.getMatakuliah());
+                            waktu_kuliahlist.add(respon_get_schedule1.getTime_start()+"-"+respon_get_schedule1.getTime_end());
+                        }
+                        show_data();
+                    }
+                }
+                else{
+                    Toast.makeText(getApplicationContext(),String.valueOf(response.code()),Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<com.example.e_presys.respon_get_schedule_dosen>> call, Throwable t) {
+
+            }
+        });
+    }
+
+
     void show_data() {
         recyclerView = findViewById(R.id.onlinemhs);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
-        adapter = new recycleviewadapter1(matakuliahlist,dosenlist,waktu_kuliahlist,this);
+        stat = sharedPreferences.getString(status,"-1");
+        adapter = new recycleviewadapter1(matakuliahlist,dosen1list,dosen2list,dosen3list,waktu_kuliahlist,stat,this);
         recyclerView.setAdapter(adapter);
     }
 }

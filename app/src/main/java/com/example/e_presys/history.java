@@ -31,14 +31,25 @@ public class history extends AppCompatActivity {
     public ArrayList keteranganlist = new ArrayList<>();
     public String key = login.token;
     public String secret = login.secret;
+    public String stat = login.secret_status;
     public SharedPreferences sharedPreferences ;
+    public String status;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
         sharedPreferences = getSharedPreferences(key, this.MODE_PRIVATE);
         String token_id = sharedPreferences.getString(secret,"kosong");
-        ambil_history(token_id);
+        status = sharedPreferences.getString(stat,"-1");
+
+        if(status.equals("0")){
+            ambil_history(token_id);
+        }
+        else{
+            ambil_history_dosen(token_id);
+        }
+
+
     }
 
 
@@ -59,7 +70,7 @@ public class history extends AppCompatActivity {
                         for(getHistory getHistory:hasil){
                             daydatelist.add(getHistory.getDay()+","+getHistory.getDate());
                             matakuliahlist.add(getHistory.getMatakuliah());
-                            dosenlist.add(getHistory.getDosen());
+                            dosenlist.add(getHistory.getDosen1()+","+getHistory.getDosen2()+","+getHistory.getDosen3());
                             waktu_kehadiranlist.add(getHistory.getTime());
                             keteranganlist.add(getHistory.getInfo());
                             Toast.makeText(getApplicationContext(),getHistory.getDate(),Toast.LENGTH_SHORT).show();
@@ -77,12 +88,48 @@ public class history extends AppCompatActivity {
         });
     }
 
+    void ambil_history_dosen(String id){
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(url+port).addConverterFactory(GsonConverterFactory.create()).build();
+        jsonplaceholder jsonplaceholder = retrofit.create(com.example.e_presys.jsonplaceholder.class);
+        final getHistoryDosen getHistory1 = new getHistoryDosen(id);
+        Call<List<getHistoryDosen>>call = jsonplaceholder.gethistorydosen(getHistory1);
+        call.enqueue(new Callback<List<getHistoryDosen>>() {
+            @Override
+            public void onResponse(Call<List<getHistoryDosen>> call, Response<List<getHistoryDosen>> response) {
+                if(response.code()==200){
+                    List<getHistoryDosen> hasil = response.body();
+                    if(hasil.isEmpty()){
+                        Toast.makeText(getApplicationContext(),"Data kosong",Toast.LENGTH_SHORT).show();
+                    }
+                    else{
+                        for(getHistoryDosen getHistory:hasil){
+                            daydatelist.add(getHistory.getDay()+","+getHistory.getDate());
+                            matakuliahlist.add(getHistory.getMatakuliah());
+                            dosenlist.add(getHistory.getKelas());
+                            waktu_kehadiranlist.add(getHistory.getTime());
+                            keteranganlist.add(getHistory.getInfo());
+                            Toast.makeText(getApplicationContext(),getHistory.getDate(),Toast.LENGTH_SHORT).show();
+                        }
+
+                        show_data();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<getHistoryDosen>> call, Throwable t) {
+
+            }
+        });
+    }
+
     void show_data() {
         recyclerView = findViewById(R.id.history);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
-        adapter = new recyclerviewadapter2(daydatelist, matakuliahlist, dosenlist, waktu_kehadiranlist, keteranganlist, this);
+        status = sharedPreferences.getString(stat,"-1");
+        adapter = new recyclerviewadapter2(daydatelist, matakuliahlist, dosenlist, waktu_kehadiranlist, keteranganlist, status,this);
         recyclerView.setAdapter(adapter);
     }
 }

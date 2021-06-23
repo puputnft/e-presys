@@ -28,6 +28,7 @@ public class login extends AppCompatActivity {
     TextView regist;
     public static final String token = "token" ;
     public static final String secret = "secret";
+    public static final String secret_status = "secret_status";
     public SharedPreferences sharedpreferences;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +75,7 @@ public class login extends AppCompatActivity {
 
                     SharedPreferences.Editor editor = sharedpreferences.edit();
                     editor.putString(secret, postlogin1.getMessage());
+                    editor.putString(secret_status,postlogin1.getStatus());
                     editor.commit();
                     Intent x = new Intent(com.example.e_presys.login.this,Pilihan.class);
                     startActivity(x);

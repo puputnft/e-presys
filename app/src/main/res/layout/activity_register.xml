@@ -45,7 +45,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.303" />
+        app:layout_constraintVertical_bias="0.303"
+        android:textColor="@color/hitam"
+        android:inputType="number"/>
 
     <EditText
         android:id="@+id/txtusernameregister"
@@ -60,9 +62,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.38" />
+        app:layout_constraintVertical_bias="0.38"
+        android:textColor="@color/hitam"/>
 
-    <EditText
+    <Spinner
         android:id="@+id/txtjurusanregister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -77,7 +80,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.465" />
 
-    <EditText
+    <Spinner
         android:id="@+id/txtprodiregister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -105,7 +108,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.619" />
+        android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890"
+        android:inputType="textFilter"
+        app:layout_constraintVertical_bias="0.619"
+        android:textColor="@color/hitam"/>
 
     <EditText
         android:id="@+id/txtemailregister"
@@ -116,11 +122,13 @@
         android:textColorHint="@color/normal"
         android:paddingLeft="15dp"
         android:paddingBottom="10dp"
+        android:inputType="textEmailAddress"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.702" />
+        app:layout_constraintVertical_bias="0.702"
+        android:textColor="@color/hitam"/>
 
     <EditText
         android:id="@+id/txtpasswordregister"
@@ -131,11 +139,13 @@
         android:textColorHint="@color/normal"
         android:paddingLeft="15dp"
         android:paddingBottom="10dp"
+        android:inputType="textPassword"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.777" />
+        app:layout_constraintVertical_bias="0.777"
+        android:textColor="@color/hitam"/>
 
     <EditText
         android:id="@+id/txtconfirmpasswordregister"
@@ -150,7 +160,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.852" />
+        app:layout_constraintVertical_bias="0.852"
+        android:inputType="textPassword"
+        android:textColor="@color/hitam"/>
 
     <ImageButton
         android:id="@+id/btnsignupregister"

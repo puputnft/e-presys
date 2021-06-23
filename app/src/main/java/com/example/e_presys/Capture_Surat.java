@@ -47,7 +47,7 @@ public class Capture_Surat extends AppCompatActivity  {
     public String secret = login.secret;
     public SharedPreferences sharedPreferences ;
     public String matkul = recycleviewadapter1.matkul;
-    public String dosen = recycleviewadapter1.dosen;
+    public String dosen = recycleviewadapter1.mdosen1;
     public String dosen1;
     public String matakuliah;
     public String token_id;

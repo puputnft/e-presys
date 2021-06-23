@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -16,18 +17,25 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class recycleviewadapter1 extends RecyclerView.Adapter<recycleviewadapter1.ViewHolder> {
-    ArrayList matakuliahlist,dosenlist,waktu_kuliahlist;
+    ArrayList matakuliahlist,dosen1list,dosen2list,dosen3list,waktu_kuliahlist;
+    String status;
     Context context;
     public String key = login.token;
     public static String matkul = "matkul" ;
-    public static String dosen = "dosen" ;
+    public static String mdosen1 = "dosen1" ;
+    public static String mdosen2 = "dosen2";
+    public static String mdosen3 = "dosen3";
+    public static String kelas_ngajar = "kelas_ngajar";
     public SharedPreferences sharedPreferences ;
 
-    public recycleviewadapter1(ArrayList matakuliahlist, ArrayList dosenlist, ArrayList waktu_kuliahlist, Context context) {
+    public recycleviewadapter1(ArrayList matakuliahlist, ArrayList dosen1list, ArrayList dosen2list, ArrayList dosen3list, ArrayList waktu_kuliahlist, String status,Context context) {
         this.matakuliahlist = matakuliahlist;
-        this.dosenlist = dosenlist;
+        this.dosen1list = dosen1list;
+        this.dosen2list = dosen2list;
+        this.dosen3list = dosen3list;
         this.waktu_kuliahlist = waktu_kuliahlist;
         this.context = context;
+        this.status = status;
 
     }
     @NonNull
@@ -40,18 +48,31 @@ public class recycleviewadapter1 extends RecyclerView.Adapter<recycleviewadapter
     @Override
     public void onBindViewHolder(@NonNull recycleviewadapter1.ViewHolder holder, int position) {
         final String matakuliah = (String) matakuliahlist.get(position);
-        final String dosen1 = (String) dosenlist.get(position);
+        final String dosen1 = (String) dosen1list.get(position);
+        final String dosen2 = (String)dosen2list.get(position);
+        final String dosen3 = (String)dosen3list.get(position);
         String waktukuliah = (String) waktu_kuliahlist.get(position);
         holder.matakuliah.setText(matakuliah);
-        holder.dosen.setText(dosen1);
+        holder.dosen.setText(dosen1+","+dosen2+","+dosen3);
         holder.waktu_kuliah.setText(waktukuliah);
         sharedPreferences = context.getSharedPreferences(key,context.MODE_PRIVATE);
         final SharedPreferences.Editor editor = sharedPreferences.edit();
+        if(status.equals("1")){
+            holder.kelas_dosen.setText("Kelas:");
+        }
+
         holder.cekdata.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 editor.putString(matkul,matakuliah );
-                editor.putString(dosen,dosen1);
+                if(status.equals("0")){
+                    editor.putString(mdosen1,dosen1);
+                    editor.putString(mdosen2,dosen2);
+                    editor.putString(mdosen3,dosen3);
+                }
+                else{
+                    editor.putString(kelas_ngajar,dosen1);
+                }
                 editor.commit();
                 Intent i = new Intent(context,konfirmasi.class);
                 context.startActivity(i);
@@ -64,11 +85,11 @@ public class recycleviewadapter1 extends RecyclerView.Adapter<recycleviewadapter
 
     @Override
     public int getItemCount() {
-        return dosenlist.size();
+        return dosen1list.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder  {
-        TextView matakuliah,dosen,waktu_kuliah;
+        TextView matakuliah,dosen,waktu_kuliah,kelas_dosen;
         ImageButton cekdata;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -76,6 +97,7 @@ public class recycleviewadapter1 extends RecyclerView.Adapter<recycleviewadapter
             dosen = itemView.findViewById(R.id.txtdosen);
             waktu_kuliah = itemView.findViewById(R.id.txtwaktukuliah);
             cekdata = itemView.findViewById(R.id.buttoncekdata);
+            kelas_dosen = itemView.findViewById(R.id.txtkelasdosenshowcekdata);
 
         }
     }

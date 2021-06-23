@@ -13,15 +13,17 @@ import java.util.ArrayList;
 
 public class recyclerviewadapter2 extends RecyclerView.Adapter<recyclerviewadapter2.ViewHolder> {
     ArrayList matakuliahlist,dosenlist,waktukehadiranlist,keteranganlist,daydatelist;
+    String status;
     Context context;
 
-    public recyclerviewadapter2(ArrayList daydatelist, ArrayList matakuliahlist, ArrayList dosenlist, ArrayList waktukehadiranlist, ArrayList keteranganlist, Context context) {
+    public recyclerviewadapter2(ArrayList daydatelist, ArrayList matakuliahlist, ArrayList dosenlist, ArrayList waktukehadiranlist, ArrayList keteranganlist, String status,Context context) {
         this.matakuliahlist = matakuliahlist;
         this.dosenlist = dosenlist;
         this.waktukehadiranlist = waktukehadiranlist;
         this.keteranganlist = keteranganlist;
         this.daydatelist = daydatelist;
         this.context = context;
+        this.status = status;
     }
 
     @NonNull
@@ -39,6 +41,9 @@ public class recyclerviewadapter2 extends RecyclerView.Adapter<recyclerviewadapt
         String waktu_kehadiran = (String) waktukehadiranlist.get(position);
         String keterangan = (String) keteranganlist.get(position);
         String daydate = (String) daydatelist.get(position);
+        if(status.equals("1")){
+            holder.kelasngajar.setText("Kelas:");
+        }
         holder.matakuliah.setText(matakuliah);
         holder.dosen.setText(dosen);
         holder.waktukehadiran.setText(waktu_kehadiran);
@@ -57,7 +62,7 @@ public class recyclerviewadapter2 extends RecyclerView.Adapter<recyclerviewadapt
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView matakuliah,dosen,waktukehadiran,keterangan,daydate;
+        TextView matakuliah,dosen,waktukehadiran,keterangan,daydate,kelasngajar;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             daydate = itemView.findViewById(R.id.daydatehis);
@@ -65,6 +70,7 @@ public class recyclerviewadapter2 extends RecyclerView.Adapter<recyclerviewadapt
             dosen = itemView.findViewById(R.id.dosenhis);
             waktukehadiran = itemView.findViewById(R.id.waktukehadiranhis);
             keterangan = itemView.findViewById(R.id.keteranganhis);
+            kelasngajar = itemView.findViewById(R.id.kelasngajarhis);
 
 
 
