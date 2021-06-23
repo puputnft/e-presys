@@ -45,10 +45,14 @@ public class Capture_Surat extends AppCompatActivity  {
     private String port_1 = "9010/";
     public String key = login.token;
     public String secret = login.secret;
+    public String stat = login.secret_status;
     public SharedPreferences sharedPreferences ;
     public String matkul = recycleviewadapter1.matkul;
-    public String dosen = recycleviewadapter1.mdosen1;
-    public String dosen1;
+    public String ndosen1 = recycleviewadapter1.mdosen1;
+    public String ndosen2 = recycleviewadapter1.mdosen2;
+    public String ndosen3 = recycleviewadapter1.mdosen3;
+    public String kelas_ngajar = recycleviewadapter1.kelas_ngajar;
+    public String dosen1,dosen2,dosen3,status,kelas;
     public String matakuliah;
     public String token_id;
     ImageButton capture;
@@ -59,31 +63,55 @@ public class Capture_Surat extends AppCompatActivity  {
         sharedPreferences = getSharedPreferences(key, this.MODE_PRIVATE);
         token_id = sharedPreferences.getString(secret,"kosong");
         matakuliah = sharedPreferences.getString(matkul,"kosong");
-        dosen1 = sharedPreferences.getString(dosen, "kosong");
+        status = sharedPreferences.getString(stat,"kosong");
+
         capture = findViewById(R.id.buttoncapture);
         capture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(MainActivity.keterangan_kode==0){
-                    sakit(token_id,matakuliah,dosen1);
+                    if(status.equals("0")){
+                        dosen1 = sharedPreferences.getString(ndosen1, "kosong");
+                        dosen2 = sharedPreferences.getString(ndosen2,"kosong");
+                        dosen3 = sharedPreferences.getString(ndosen3,"kosong");
+//                        Toast.makeText(getApplicationContext(),dosen3,Toast.LENGTH_SHORT).show();
+                        sakit(token_id,matakuliah,dosen1,dosen2,dosen3);
+                    }
+                    else{
+                        kelas = sharedPreferences.getString(kelas_ngajar,"kosong");
+                        sakit_dosen(token_id,matakuliah,kelas);
+
+                    }
+
                 }
                 else {
-                    izin(token_id,matakuliah,dosen1);
+                    if(status.equals("0")){
+                        dosen1 = sharedPreferences.getString(ndosen1, "kosong");
+                        dosen2 = sharedPreferences.getString(ndosen2,"kosong");
+                        dosen3 = sharedPreferences.getString(ndosen3,"kosong");
+                        izin(token_id,matakuliah,dosen1,dosen2,dosen3);
+                    }
+                    else{
+                        kelas = sharedPreferences.getString(kelas_ngajar,"kosong");
+                        izin_dosen(token_id,matakuliah,kelas);
+
+                    }
+
                 }
             }
         });
     }
-    public void sakit(String id, String matakuliah, String dosen) {
+    public void sakit(String id, String matakuliah, String dosen1,String dosen2,String dosen3) {
         Retrofit retrofit = new Retrofit.Builder().baseUrl(url+"9009/").addConverterFactory(GsonConverterFactory.create()).build();
         jsonplaceholder jsonplaceholder = retrofit.create(com.example.e_presys.jsonplaceholder.class);
-        final postSakit postSakit = new postSakit(id, matakuliah, dosen);
+        final postSakit postSakit = new postSakit(id, matakuliah, dosen1,dosen2,dosen3);
         Call<postSakit>call = jsonplaceholder.postSakit(postSakit);
         call.enqueue(new Callback<com.example.e_presys.postSakit>() {
             @Override
             public void onResponse(Call<com.example.e_presys.postSakit> call, Response<com.example.e_presys.postSakit> response) {
                 if (response.code()==200) {
                     postSakit postSakit1 = response.body();
-                    Toast.makeText(getApplicationContext(),postSakit1.getMessage(),Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),postSakit1.getSakit(),Toast.LENGTH_SHORT).show();
                     captureImage();
                 }
                 else {
@@ -97,21 +125,21 @@ public class Capture_Surat extends AppCompatActivity  {
             }
         });
     }
-    public void izin(String id, String matakuliah, String dosen){
+    public void izin(String id, String matakuliah, String dosen1,String dosen2,String dosen3){
         Retrofit retrofit = new Retrofit.Builder().baseUrl(url+"9006/").addConverterFactory(GsonConverterFactory.create()).build();
         jsonplaceholder jsonplaceholder = retrofit.create(com.example.e_presys.jsonplaceholder.class);
-        postIzin postIzin = new postIzin(id, matakuliah, dosen);
+        postIzin postIzin = new postIzin(id, matakuliah, dosen1,dosen2,dosen3);
         Call<postIzin>call = jsonplaceholder.postIzin(postIzin);
         call.enqueue(new Callback<com.example.e_presys.postIzin>() {
             @Override
             public void onResponse(Call<com.example.e_presys.postIzin> call, Response<com.example.e_presys.postIzin> response) {
                 if (response.code()==200) {
                     postIzin postIzin1 = response.body();
-                    Toast.makeText(getApplicationContext(),postIzin1.getMessage(),Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),postIzin1.getIzin(),Toast.LENGTH_SHORT).show();
                     captureImage();
                 }
                 else {
-                    Toast.makeText(getApplicationContext(),"proses gagal",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),String.valueOf(response.code()),Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -202,6 +230,56 @@ public class Capture_Surat extends AppCompatActivity  {
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
+    }
+
+    void sakit_dosen(String id,String matakuliah,String kelas){
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(url+"9009/").addConverterFactory(GsonConverterFactory.create()).build();
+        jsonplaceholder jsonplaceholder = retrofit.create(com.example.e_presys.jsonplaceholder.class);
+        postSakitDosen postSakitDosen = new postSakitDosen(id, matakuliah, kelas);
+        Call<postSakitDosen>call = jsonplaceholder.postsakitdosen(postSakitDosen);
+        call.enqueue(new Callback<com.example.e_presys.postSakitDosen>() {
+            @Override
+            public void onResponse(Call<com.example.e_presys.postSakitDosen> call, Response<com.example.e_presys.postSakitDosen> response) {
+                if (response.code()==200) {
+                    postSakitDosen postIzin1 = response.body();
+                    Toast.makeText(getApplicationContext(),postIzin1.getSakit(),Toast.LENGTH_SHORT).show();
+                    captureImage();
+                }
+                else {
+                    Toast.makeText(getApplicationContext(),"proses gagal "+String.valueOf(response.code()),Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<com.example.e_presys.postSakitDosen> call, Throwable t) {
+
+            }
+        });
+    }
+
+    void izin_dosen(String id,String matakuliah,String kelas){
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(url+"9009/").addConverterFactory(GsonConverterFactory.create()).build();
+        jsonplaceholder jsonplaceholder = retrofit.create(com.example.e_presys.jsonplaceholder.class);
+        postIzinDosen postIzinDosen = new postIzinDosen(id, matakuliah, kelas);
+        Call<postIzinDosen>call = jsonplaceholder.postizindosen(postIzinDosen);
+        call.enqueue(new Callback<com.example.e_presys.postIzinDosen>() {
+            @Override
+            public void onResponse(Call<com.example.e_presys.postIzinDosen> call, Response<com.example.e_presys.postIzinDosen> response) {
+                if (response.code()==200) {
+                    postIzinDosen postIzin1 = response.body();
+                    Toast.makeText(getApplicationContext(),postIzin1.getIzin(),Toast.LENGTH_SHORT).show();
+                    captureImage();
+                }
+                else {
+                    Toast.makeText(getApplicationContext(),"proses gagal "+String.valueOf(response.code()),Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<com.example.e_presys.postIzinDosen> call, Throwable t) {
 
             }
         });

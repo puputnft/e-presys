@@ -27,8 +27,12 @@ public interface jsonplaceholder {
     Call<postPresentDosen>getlinkdosen(@Body postPresentDosen postPresentDosen);
     @POST("/user/izin")
     Call<postIzin>postIzin(@Body postIzin postIzin);
+    @POST("/user/izin")
+    Call<postIzinDosen>postizindosen(@Body postIzinDosen postIzinDosen);
     @POST("/user/sakit")
     Call<postSakit>postSakit(@Body postSakit postSakit);
+    @POST("/user/sakit")
+    Call<postSakitDosen>postsakitdosen(@Body postSakitDosen postSakitDosen);
     @POST("user/history")
     Call<List<getHistory>>gethistory(@Body getHistory getHistory);
     @POST("user/history")
