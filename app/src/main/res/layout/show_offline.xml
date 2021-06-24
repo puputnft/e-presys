@@ -44,7 +44,7 @@
             android:textSize="14sp" />
 
         <TextView
-            android:id="@+id/textView7"
+            android:id="@+id/txtkelasdosenshowoffline"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
@@ -127,12 +127,13 @@
             android:textColor="@color/hitam" />
 
         <ImageButton
+            android:id="@+id/offcekdatashowofflline"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_marginStart="359dp"
-            android:layout_marginTop="149dp"
+            android:layout_marginStart="301dp"
+            android:layout_marginTop="144dp"
             android:background="@drawable/custom_button_cekdat" />
     </RelativeLayout>
 

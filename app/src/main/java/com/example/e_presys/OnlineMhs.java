@@ -29,6 +29,7 @@ public class OnlineMhs extends AppCompatActivity {
     public ArrayList dosen2list = new ArrayList<>();
     public ArrayList dosen3list = new ArrayList<>();
     public ArrayList waktu_kuliahlist = new ArrayList<>();
+    public ArrayList ruanganlist = new ArrayList<>();
     public String key = login.token;
     public String secret = login.secret;
     public String status = login.secret_status;
@@ -71,6 +72,7 @@ public class OnlineMhs extends AppCompatActivity {
                             dosen3list.add(respon_get_schedule1.getDosen3());
                             matakuliahlist.add(respon_get_schedule1.getMatakuliah());
                             waktu_kuliahlist.add(respon_get_schedule1.getTime_start()+"-"+respon_get_schedule1.getTime_end());
+                            ruanganlist.add(respon_get_schedule1.getRuangan());
                         }
                         show_data();
                     }
@@ -108,6 +110,7 @@ public class OnlineMhs extends AppCompatActivity {
                             dosen3list.add(" ");
                             matakuliahlist.add(respon_get_schedule1.getMatakuliah());
                             waktu_kuliahlist.add(respon_get_schedule1.getTime_start()+"-"+respon_get_schedule1.getTime_end());
+                            ruanganlist.add(respon_get_schedule1.getRuangan());
                         }
                         show_data();
                     }
@@ -131,7 +134,12 @@ public class OnlineMhs extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
         stat = sharedPreferences.getString(status,"-1");
-        adapter = new recycleviewadapter1(matakuliahlist,dosen1list,dosen2list,dosen3list,waktu_kuliahlist,stat,this);
+        if (MainActivity.keterangan_kode==3){
+            adapter = new recycleviewadapter1(matakuliahlist,dosen1list,dosen2list,dosen3list,waktu_kuliahlist,stat,this);
+        }
+        else{
+            adapter = new recyclerviewadapter3(matakuliahlist,dosen1list,dosen2list,dosen3list,waktu_kuliahlist,ruanganlist,stat,this);
+        }
         recyclerView.setAdapter(adapter);
     }
 }

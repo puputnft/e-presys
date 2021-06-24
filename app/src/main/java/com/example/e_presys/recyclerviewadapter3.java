@@ -30,11 +30,12 @@ public class recyclerviewadapter3 extends RecyclerView.Adapter<recyclerviewadapt
     public static String offruangan = "ruangan";
     public SharedPreferences sharedPreferences;
 
-    public recyclerviewadapter3(ArrayList offmatakuliahlist, ArrayList offdosen1list, ArrayList offdosen2list, ArrayList offdosen3list, ArrayList offruanganlist, String status, Context context) {
+    public recyclerviewadapter3(ArrayList offmatakuliahlist, ArrayList offdosen1list, ArrayList offdosen2list, ArrayList offdosen3list,ArrayList offwaktukuliahlist ,ArrayList offruanganlist, String status, Context context) {
         this.offmatakuliahlist = offmatakuliahlist;
         this.offdosen1list = offdosen1list;
         this.offdosen2list = offdosen2list;
         this.offdosen3list = offdosen3list;
+        this.offwaktukuliahlist = offwaktukuliahlist;
         this.offruanganlist = offruanganlist;
         this.context = context;
         this.status = status;
@@ -53,7 +54,7 @@ public class recyclerviewadapter3 extends RecyclerView.Adapter<recyclerviewadapt
         final String dosen2off = (String) offdosen2list.get(position);
         final String dosen3off = (String) offdosen3list.get(position);
         String waktukuliahoff = (String) offwaktukuliahlist.get(position);
-        String ruanganoff = (String) offruanganlist.get(position);
+        final String ruanganoff = (String) offruanganlist.get(position);
         holder.matakuliahoff.setText(matakuliahoff);
         holder.dosenoff.setText(dosen1off+","+dosen2off+","+dosen3off);
         holder.waktukuliahoff.setText(waktukuliahoff);
@@ -68,6 +69,7 @@ public class recyclerviewadapter3 extends RecyclerView.Adapter<recyclerviewadapt
             @Override
             public void onClick(View v) {
                 editor.putString(offmatkul, matakuliahoff);
+                editor.putString(offruangan,ruanganoff);
                 if (status.equals("0")) {
                     editor.putString(offdosen1, dosen1off);
                     editor.putString(offdosen2, dosen2off);
@@ -76,9 +78,17 @@ public class recyclerviewadapter3 extends RecyclerView.Adapter<recyclerviewadapt
                     editor.putString(kelas_ngajar, dosen1off);
                 }
                 editor.commit();
-                Intent i = new Intent(context, konfirmasi.class);
-                context.startActivity(i);
-                ((offline) context).finish();
+                if(MainActivity.keterangan_kode==3){
+                    Intent i = new Intent(context, konfirmasi.class);
+                    context.startActivity(i);
+                    ((OnlineMhs) context).finish();
+                }
+                else{
+                    Intent i = new Intent(context, Lokasi.class);
+                    context.startActivity(i);
+                    ((OnlineMhs) context).finish();
+                }
+
             }
         });
 
@@ -97,7 +107,8 @@ public class recyclerviewadapter3 extends RecyclerView.Adapter<recyclerviewadapt
             dosenoff = itemView.findViewById(R.id.offdosen);
             waktukuliahoff = itemView.findViewById(R.id.offwaktukuliah);
             ruanganoff = itemView.findViewById(R.id.offruangan);
-            kelas_dosenoff = itemView.findViewById(R.id.txtkelasdosenshowcekdata);
+            kelas_dosenoff = itemView.findViewById(R.id.txtkelasdosenshowoffline);
+            cekdata = itemView.findViewById(R.id.offcekdatashowofflline);
         }
     }
 }

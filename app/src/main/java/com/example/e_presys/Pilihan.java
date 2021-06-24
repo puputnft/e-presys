@@ -31,6 +31,7 @@ public class Pilihan extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent x = new Intent(Pilihan.this,OnlineMhs.class);
+                MainActivity.keterangan_kode=4;
                 startActivity(x);
 
             }

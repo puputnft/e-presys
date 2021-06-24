@@ -27,4 +27,8 @@ public class respon_get_schedule_dosen {
     public String getMatakuliah() {
         return matakuliah;
     }
+
+    public String getRuangan() {
+        return ruangan;
+    }
 }

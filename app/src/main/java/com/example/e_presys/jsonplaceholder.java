@@ -40,6 +40,8 @@ public interface jsonplaceholder {
     @Multipart
     @POST("/uploadfile")
     Call<ResponseBody>uploadimage(@Part MultipartBody.Part file);
+    @POST("lokasi")
+    Call<postLokasi>postlokasi(@Body postLokasi postLokasi);
 
 
 }
