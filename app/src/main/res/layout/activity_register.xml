@@ -25,6 +25,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/roboto_light_italic"
         android:text="Please fill in this form to create an account!"
+        android:textColor="@color/hitam"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
