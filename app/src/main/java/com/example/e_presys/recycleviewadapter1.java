@@ -74,7 +74,7 @@ public class recycleviewadapter1 extends RecyclerView.Adapter<recycleviewadapter
                     editor.putString(kelas_ngajar,dosen1);
                 }
                 editor.commit();
-                Intent i = new Intent(context,konfirmasi.class);
+                Intent i = new Intent(context,fingerPrint.class);
                 context.startActivity(i);
                 ((OnlineMhs)context).finish();
             }

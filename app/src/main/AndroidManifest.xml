@@ -24,7 +24,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".offline"></activity>
+        <activity android:name=".fingerPrint"></activity>
+        <activity android:name=".offline" />
         <activity android:name=".history" />
         <activity android:name=".masuk_kelas" />
         <activity android:name=".cek_data" />
