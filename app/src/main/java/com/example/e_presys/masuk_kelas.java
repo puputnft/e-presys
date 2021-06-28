@@ -63,7 +63,8 @@ public class masuk_kelas extends AppCompatActivity {
                     link.setMovementMethod(LinkMovementMethod.getInstance());
                 }
                 else{
-                    Toast.makeText(getApplicationContext(),"Ga bisa masuk kelas lur"+response.code(),Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),"masuk kelas ditolak" +
+                            ""+response.code(),Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(masuk_kelas.this,Pilihan.class));
                     finish();
                 }

@@ -34,12 +34,13 @@ public class OnlineMhs extends AppCompatActivity {
     public String secret = login.secret;
     public String status = login.secret_status;
     public String stat;
-    public SharedPreferences sharedPreferences ;
+    public SharedPreferences sharedPreferences,sharedPreference1 ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_online_mhs);
         sharedPreferences = getSharedPreferences(key, this.MODE_PRIVATE);
+        sharedPreference1 = getSharedPreferences(Pilihan.root,MODE_PRIVATE);
         String token_id = sharedPreferences.getString(secret,"kosong");
         stat = sharedPreferences.getString(status,"-1");
         if (stat.equals("0")){
@@ -134,11 +135,15 @@ public class OnlineMhs extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
         stat = sharedPreferences.getString(status,"-1");
-        if (MainActivity.keterangan_kode==3){
+        String alur = sharedPreference1.getString(Pilihan.sub_root,"kosong");
+        if (alur.equals("3")){
             adapter = new recycleviewadapter1(matakuliahlist,dosen1list,dosen2list,dosen3list,waktu_kuliahlist,stat,this);
         }
-        else{
+        else if(alur.equals("4")){
             adapter = new recyclerviewadapter3(matakuliahlist,dosen1list,dosen2list,dosen3list,waktu_kuliahlist,ruanganlist,stat,this);
+        }
+        else{
+            adapter = new recycleviewadapter1(matakuliahlist,dosen1list,dosen2list,dosen3list,waktu_kuliahlist,stat,this);
         }
         recyclerView.setAdapter(adapter);
     }

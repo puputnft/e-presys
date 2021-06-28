@@ -3,6 +3,7 @@ package com.example.e_presys;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -20,11 +21,12 @@ public class konfirmasi extends AppCompatActivity {
     private String port = "9005/";
     ImageButton konfirmasi;
     EditText konfirmasi_user, konfirmasi_pass;
+    SharedPreferences sharedPreferences;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_konfirmasi);
-
+        sharedPreferences = getSharedPreferences(Pilihan.root,MODE_PRIVATE);
         konfirmasi_user = findViewById(R.id.konfirmasi_username);
         konfirmasi_pass = findViewById(R.id.konfirmasi_password);
         konfirmasi = findViewById(R.id.konfirmasi);
@@ -50,7 +52,8 @@ public class konfirmasi extends AppCompatActivity {
             public void onResponse(Call<com.example.e_presys.postlogin> call, Response<com.example.e_presys.postlogin> response) {
                 if (response.code()==200){
                     Toast.makeText(getApplicationContext(),"Berhasil",Toast.LENGTH_SHORT).show();
-                    if(MainActivity.keterangan_kode==0||MainActivity.keterangan_kode==1){
+                    String alur = sharedPreferences.getString(Pilihan.sub_root,"kosong");
+                    if(alur.equals("0")||alur.equals("1")){
                         startActivity(new Intent(com.example.e_presys.konfirmasi.this,Capture_Surat.class));
                         finish();
                     }

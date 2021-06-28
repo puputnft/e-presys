@@ -113,8 +113,8 @@ public class Lokasi extends AppCompatActivity implements LocationListener {
         call.enqueue(new Callback<com.example.e_presys.postLokasi>() {
             @Override
             public void onResponse(Call<com.example.e_presys.postLokasi> call, Response<com.example.e_presys.postLokasi> response) {
-                if(response.code()==200){
-                    Toast.makeText(getApplicationContext(),response.body().getMessage(),Toast.LENGTH_SHORT).show();
+                if(response.code()==203){
+//                    Toast.makeText(getApplicationContext(),response.body().getMessage(),Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(Lokasi.this,konfirmasi.class));
                     onBackPressed();
                 }
