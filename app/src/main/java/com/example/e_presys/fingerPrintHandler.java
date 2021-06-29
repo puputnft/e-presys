@@ -88,12 +88,18 @@ public class fingerPrintHandler extends FingerprintManager.AuthenticationCallbac
             public void onResponse(Call<List<com.example.e_presys.respon_get_schedule>> call, Response<List<com.example.e_presys.respon_get_schedule>> response) {
                 if(response.code()==200){
                     sharedPreference1 = ((Activity)context).getSharedPreferences(Pilihan.root,MODE_PRIVATE);
-                    String alur = sharedPreferences.getString(Pilihan.sub_root,"kosong");
+                    String alur = sharedPreference1.getString(Pilihan.sub_root,"kosong");
                     if(alur.equals("0")||alur.equals("1")){
                         launch_to_capture_surat();
                     }
-                    else{
+                    else if(alur.equals("4")){
+                        notif("Welcome to class");
+                    }
+                    else if(alur.equals("3")){
                         launch_to_class();
+                    }
+                    else{
+                        notif(alur);
                     }
 
                 }
