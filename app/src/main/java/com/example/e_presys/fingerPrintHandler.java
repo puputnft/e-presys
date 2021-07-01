@@ -93,7 +93,7 @@ public class fingerPrintHandler extends FingerprintManager.AuthenticationCallbac
                         launch_to_capture_surat();
                     }
                     else if(alur.equals("4")){
-                        notif("Welcome to class");
+                        launch_to_class();
                     }
                     else if(alur.equals("3")){
                         launch_to_class();

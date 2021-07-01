@@ -58,7 +58,8 @@ public class konfirmasi extends AppCompatActivity {
                         finish();
                     }
                     else if(alur.equals("4")){
-                        Toast.makeText(getApplicationContext(),"Welcome to the class",Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(com.example.e_presys.konfirmasi.this,masuk_kelas.class));
+                        finish();
                     }
                     else if(alur.equals("3")){
                         startActivity(new Intent(com.example.e_presys.konfirmasi.this,masuk_kelas.class));

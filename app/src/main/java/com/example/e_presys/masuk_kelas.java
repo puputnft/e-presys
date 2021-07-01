@@ -27,12 +27,13 @@ public class masuk_kelas extends AppCompatActivity {
     public String status = login.secret_status;
     public String matkul = recycleviewadapter1.matkul;
     public String kelas = recycleviewadapter1.kelas_ngajar;
-    public SharedPreferences sharedPreferences ;
+    public SharedPreferences sharedPreferences,sharedPreferences1 ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_masuk_kelas);
         sharedPreferences = getSharedPreferences(key, this.MODE_PRIVATE);
+        sharedPreferences1 = getSharedPreferences(Pilihan.root,MODE_PRIVATE);
         String token_id = sharedPreferences.getString(secret,"kosong");
         String matakuliah = sharedPreferences.getString(matkul,"kosong");
         String stat = sharedPreferences.getString(status,"kosong");
@@ -56,16 +57,23 @@ public class masuk_kelas extends AppCompatActivity {
             @Override
             public void onResponse(Call<com.example.e_presys.postpresent> call, Response<com.example.e_presys.postpresent> response) {
                 if (response.code()==200){
+
                     postpresent postpresent1 =response.body();
                     String l = postpresent1.getLink();
-                    Toast.makeText(getApplicationContext(),l,Toast.LENGTH_SHORT).show();
-                    link.setText(Html.fromHtml("<a href=\""+l+"\">link_kelas</a>"));
-                    link.setMovementMethod(LinkMovementMethod.getInstance());
+                    String alur = sharedPreferences.getString(Pilihan.sub_root,"kosong");
+                    if(alur.equals("4")){
+                        link.setText("Welcome to the class");
+                    }
+                    else{
+                        Toast.makeText(getApplicationContext(),l,Toast.LENGTH_SHORT).show();
+                        link.setText(Html.fromHtml("<a href=\""+l+"\">link_kelas</a>"));
+                        link.setMovementMethod(LinkMovementMethod.getInstance());
+                    }
+
                 }
                 else{
                     Toast.makeText(getApplicationContext(),"masuk kelas ditolak" +
-                            ""+response.code(),Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(masuk_kelas.this,Pilihan.class));
+                            " "+response.code(),Toast.LENGTH_SHORT).show();
                     finish();
                 }
             }
