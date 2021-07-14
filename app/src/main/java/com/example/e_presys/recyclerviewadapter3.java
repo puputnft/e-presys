@@ -14,7 +14,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.lang.reflect.Array;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import static com.example.e_presys.recycleviewadapter1.kelas_ngajar;
 
@@ -55,6 +57,17 @@ public class recyclerviewadapter3 extends RecyclerView.Adapter<recyclerviewadapt
         final String dosen3off = (String) offdosen3list.get(position);
         String waktukuliahoff = (String) offwaktukuliahlist.get(position);
         final String ruanganoff = (String) offruanganlist.get(position);
+        Calendar cal = Calendar.getInstance();
+        int tahun = cal.get(Calendar.YEAR);
+        int bulan = cal.get(Calendar.MONTH)+1;
+        int date = cal.get(Calendar.DAY_OF_MONTH);
+        String tgl = date+"-"+bulan+"-"+tahun;
+        String hari = "";
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            OffsetDateTime offset = OffsetDateTime.now();
+            hari = String.valueOf(offset.getDayOfWeek());
+        }
+        holder.daydate.setText(hari+","+tgl);
         holder.matakuliahoff.setText(matakuliahoff);
         holder.dosenoff.setText(dosen1off+","+dosen2off+","+dosen3off);
         holder.waktukuliahoff.setText(waktukuliahoff);
@@ -99,7 +112,7 @@ public class recyclerviewadapter3 extends RecyclerView.Adapter<recyclerviewadapt
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView matakuliahoff,dosenoff,waktukuliahoff,ruanganoff,kelas_dosenoff;
+        TextView matakuliahoff,dosenoff,waktukuliahoff,ruanganoff,kelas_dosenoff,daydate;
         ImageButton cekdata;
         public ViewHolder (@NonNull View itemView) {
             super(itemView);
@@ -109,6 +122,7 @@ public class recyclerviewadapter3 extends RecyclerView.Adapter<recyclerviewadapt
             ruanganoff = itemView.findViewById(R.id.offruangan);
             kelas_dosenoff = itemView.findViewById(R.id.txtkelasdosenshowoffline);
             cekdata = itemView.findViewById(R.id.offcekdatashowofflline);
+            daydate = itemView.findViewById(R.id.txtdaydateshowlistoffline);
         }
     }
 }

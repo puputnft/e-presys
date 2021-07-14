@@ -14,7 +14,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.lang.reflect.Array;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Locale;
 
 public class recycleviewadapter1 extends RecyclerView.Adapter<recycleviewadapter1.ViewHolder> {
     ArrayList matakuliahlist,dosen1list,dosen2list,dosen3list,waktu_kuliahlist;
@@ -52,6 +55,17 @@ public class recycleviewadapter1 extends RecyclerView.Adapter<recycleviewadapter
         final String dosen2 = (String)dosen2list.get(position);
         final String dosen3 = (String)dosen3list.get(position);
         String waktukuliah = (String) waktu_kuliahlist.get(position);
+        Calendar cal = Calendar.getInstance();
+        int tahun = cal.get(Calendar.YEAR);
+        int bulan = cal.get(Calendar.MONTH)+1;
+        int date = cal.get(Calendar.DAY_OF_MONTH);
+        String tgl = date+"-"+bulan+"-"+tahun;
+        String hari = "";
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            OffsetDateTime offset = OffsetDateTime.now();
+            hari = String.valueOf(offset.getDayOfWeek());
+        }
+        holder.showdaydate.setText(hari+","+tgl);
         holder.matakuliah.setText(matakuliah);
         holder.dosen.setText(dosen1+","+dosen2+","+dosen3);
         holder.waktu_kuliah.setText(waktukuliah);
@@ -89,7 +103,7 @@ public class recycleviewadapter1 extends RecyclerView.Adapter<recycleviewadapter
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder  {
-        TextView matakuliah,dosen,waktu_kuliah,kelas_dosen;
+        TextView matakuliah,dosen,waktu_kuliah,kelas_dosen,showdaydate;
         ImageButton cekdata;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -98,7 +112,7 @@ public class recycleviewadapter1 extends RecyclerView.Adapter<recycleviewadapter
             waktu_kuliah = itemView.findViewById(R.id.txtwaktukuliah);
             cekdata = itemView.findViewById(R.id.buttoncekdata);
             kelas_dosen = itemView.findViewById(R.id.txtkelasdosenshowcekdata);
-
+            showdaydate = itemView.findViewById(R.id.daydatelistshowcekdata);
         }
     }
 }
