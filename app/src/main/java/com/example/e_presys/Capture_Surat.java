@@ -46,7 +46,7 @@ public class Capture_Surat extends AppCompatActivity  {
     public String key = login.token;
     public String secret = login.secret;
     public String stat = login.secret_status;
-    public SharedPreferences sharedPreferences ;
+    public SharedPreferences sharedPreferences,sharedPreferences1 ;
     public String matkul = recycleviewadapter1.matkul;
     public String ndosen1 = recycleviewadapter1.mdosen1;
     public String ndosen2 = recycleviewadapter1.mdosen2;
@@ -61,15 +61,16 @@ public class Capture_Surat extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_capture_surat);
         sharedPreferences = getSharedPreferences(key, this.MODE_PRIVATE);
+        sharedPreferences1 = getSharedPreferences(Pilihan.root,this.MODE_PRIVATE);
         token_id = sharedPreferences.getString(secret,"kosong");
         matakuliah = sharedPreferences.getString(matkul,"kosong");
         status = sharedPreferences.getString(stat,"kosong");
-
+        final String stet = sharedPreferences1.getString(Pilihan.sub_root,"kosong");
         capture = findViewById(R.id.buttoncapture);
         capture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(MainActivity.keterangan_kode==0){
+                if(stet.equals("0")){
                     if(status.equals("0")){
                         dosen1 = sharedPreferences.getString(ndosen1, "kosong");
                         dosen2 = sharedPreferences.getString(ndosen2,"kosong");
@@ -261,7 +262,7 @@ public class Capture_Surat extends AppCompatActivity  {
     }
 
     void izin_dosen(String id,String matakuliah,String kelas){
-        Retrofit retrofit = new Retrofit.Builder().baseUrl(url+"9009/").addConverterFactory(GsonConverterFactory.create()).build();
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(url+"9006/").addConverterFactory(GsonConverterFactory.create()).build();
         jsonplaceholder jsonplaceholder = retrofit.create(com.example.e_presys.jsonplaceholder.class);
         postIzinDosen postIzinDosen = new postIzinDosen(id, matakuliah, kelas);
         Call<postIzinDosen>call = jsonplaceholder.postizindosen(postIzinDosen);

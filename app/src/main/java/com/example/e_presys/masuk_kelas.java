@@ -65,8 +65,8 @@ public class masuk_kelas extends AppCompatActivity {
                         link.setText("Welcome to the class");
                     }
                     else{
-                        Toast.makeText(getApplicationContext(),l,Toast.LENGTH_SHORT).show();
-                        link.setText(Html.fromHtml("<a href=\""+l+"\">link_kelas</a>"));
+//                        Toast.makeText(getApplicationContext(),l,Toast.LENGTH_SHORT).show();
+                        link.setText(Html.fromHtml("<a href=\""+l+"\">Selamat Belajar</a>"));
                         link.setMovementMethod(LinkMovementMethod.getInstance());
                     }
 

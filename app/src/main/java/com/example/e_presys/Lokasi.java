@@ -85,6 +85,10 @@ public class Lokasi extends AppCompatActivity implements LocationListener {
                     ruangan = sharedPreferences.getString(mruangan,"kosong");
                     cek_lokasi(token_id,String.valueOf(lat),String.valueOf(lng),ruangan);
 
+
+                }
+                else{
+                    Toast.makeText(getApplicationContext(),"No location detect cek your GPS",Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -126,7 +130,7 @@ public class Lokasi extends AppCompatActivity implements LocationListener {
 
             @Override
             public void onFailure(Call<com.example.e_presys.postLokasi> call, Throwable t) {
-
+                Toast.makeText(getApplicationContext(),"Lost connection",Toast.LENGTH_SHORT).show();
             }
         });
     }
